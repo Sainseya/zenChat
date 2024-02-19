@@ -19,7 +19,7 @@ const PopUpGuestSignIn = ({ onClose }) => {
 
     try {
       const { data } = await axios.post(
-        "http://localhost:5000/api/user/guestLogin",
+        "/api/user/guestLogin",
         { name },
         { headers: { "Content-Type": "application/json" } }
       );
