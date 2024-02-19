@@ -22,7 +22,8 @@ const Homepage = () => {
   const { user, setContactId, selectedChat, setSelectedChat, setMessages, socket, setSocket, setSelectedChatCompare, groups, setGroups, channels, setServer, setChannels } = ChatState();
 
   const currentUser = user && user._id;
-  // const ENDPOINT = 'http://localhost:5000'; // Adjust the endpoint accordingly
+  const ENDPOINT = 'https://zenchat-61rp.onrender.com';
+
 
   let navigate = useNavigate();
 
@@ -149,8 +150,6 @@ const Homepage = () => {
     fetchMessages();
     setSelectedChatCompare(selectedChat);
   }, [selectedChat, setMessages]);
-
-
 
 
   return (
