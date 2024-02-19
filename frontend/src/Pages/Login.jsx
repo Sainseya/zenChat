@@ -47,7 +47,7 @@ const Login = () => {
           Connexion
         </button>
       </div>
-      <div className="mb-11">
+      <div className="mb-11 z-10">
         <button 
         className=" w-64 bg-dun border-2 border-jet text-black p-2 rounded-xl hover:bg-dunHover"
         onClick={handleGuestClick}
