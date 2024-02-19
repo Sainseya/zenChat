@@ -1,5 +1,5 @@
 const express = require("express");
-const cors = require("cors")
+// const cors = require("cors")
 const dotenv = require("dotenv");
 const connectDB = require("./config/db");
 const userRoutes = require("./routes/userRoutes");
@@ -15,7 +15,7 @@ const app = express()
 dotenv.config()
 
 app.use(express.json()) // Accepte JSON Data
-app.use(cors())
+// app.use(cors())
 
 app.use("/api/user", userRoutes);
 app.use("/api/chat", chatRoutes);
@@ -37,12 +37,11 @@ if (process.env.NODE_ENV === "production") {
   });
 }
 
-const PORT = process.env.PORT;
-
 // Error Handling middlewares
 app.use(notFound);
 app.use(errorHandler);
 
+const PORT = process.env.PORT;
 
 const server = app.listen(PORT, console.log(`Server Started on PORT ${PORT}`));
 
