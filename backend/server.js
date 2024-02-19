@@ -22,12 +22,6 @@ app.use("/api/chat", chatRoutes);
 app.use("/api/message", messageRoutes);
 app.use("/api/server", serverRoutes);
 
-// Error Handling middlewares
-app.use(notFound);
-app.use(errorHandler);
-
-const PORT = process.env.PORT;
-
 // ---------Deployement-----------------------------------------------------------
 const __dirname1 = path.resolve();
 
@@ -42,6 +36,13 @@ if (process.env.NODE_ENV === "production") {
     res.send("API is running..");
   });
 }
+
+const PORT = process.env.PORT;
+
+// Error Handling middlewares
+app.use(notFound);
+app.use(errorHandler);
+
 
 const server = app.listen(PORT, console.log(`Server Started on PORT ${PORT}`));
 
@@ -64,8 +65,6 @@ io.on("connection", (socket) => {
         socket.join(room);
         console.log("User Joined Room: " + room);
     });
-    // socket.on("typing", (room) => socket.in(room).emit("typing"));
-    // socket.on("stop typing", (room) => socket.in(room).emit("stop typing"));
 
     socket.on("new message", (newMessageRecieved) => {
         io.emit("message received", newMessageRecieved);
