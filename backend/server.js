@@ -11,9 +11,10 @@ const path = require("path");
 const { notFound, errorHandler } = require("./middleware/errorMiddleware");
 
 connectDB();
-app.use(cors())
 const app = express() 
 dotenv.config()
+
+app.use(cors())
 
 // var allowlist = ['https://zenchat-61rp.onrender.com/', 'http://localhost:5000/']
 // var corsOptionsDelegate = function (req, callback) {
