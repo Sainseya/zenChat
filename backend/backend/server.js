@@ -6,7 +6,7 @@ const userRoutes = require("./routes/userRoutes");
 const chatRoutes = require("./routes/chatRoutes");
 const messageRoutes = require("./routes/messageRoutes");
 const serverRoutes = require("./routes/serverRoutes");
-
+const path = require("path");
 
 const { notFound, errorHandler } = require("./middleware/errorMiddleware");
 
@@ -26,7 +26,23 @@ app.use("/api/server", serverRoutes);
 app.use(notFound);
 app.use(errorHandler);
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT;
+
+// ---------Deployement-----------------------------------------------------------
+const __dirname1 = path.resolve();
+
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static(path.join(__dirname1, "/frontend/dist")));
+
+  app.get("*", (req, res) =>
+    res.sendFile(path.resolve(__dirname1, "frontend", "dist", "index.html"))
+  );
+} else {
+  app.get("/", (req, res) => {
+    res.send("API is running..");
+  });
+}
+
 const server = app.listen(PORT, console.log(`Server Started on PORT ${PORT}`));
 
 const io = require("socket.io")(server, {
