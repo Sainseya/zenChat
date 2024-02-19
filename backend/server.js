@@ -11,27 +11,27 @@ const path = require("path");
 const { notFound, errorHandler } = require("./middleware/errorMiddleware");
 
 connectDB();
+app.use(cors())
 const app = express() 
 dotenv.config()
 
-var allowlist = ['https://zenchat-61rp.onrender.com/', 'http://localhost:5000/']
-var corsOptionsDelegate = function (req, callback) {
-  var corsOptions;
-  if (allowlist.indexOf(req.header('Origin')) !== -1) {
-    corsOptions = { origin: true } // reflect (enable) the requested origin in the CORS response
-  } else {
-    corsOptions = { origin: false } // disable CORS for this request
-  }
-  callback(null, corsOptions) // callback expects two parameters: error and options
-}
+// var allowlist = ['https://zenchat-61rp.onrender.com/', 'http://localhost:5000/']
+// var corsOptionsDelegate = function (req, callback) {
+//   var corsOptions;
+//   if (allowlist.indexOf(req.header('Origin')) !== -1) {
+//     corsOptions = { origin: true } // reflect (enable) the requested origin in the CORS response
+//   } else {
+//     corsOptions = { origin: false } // disable CORS for this request
+//   }
+//   callback(null, corsOptions) // callback expects two parameters: error and options
+// }
 
 app.use(express.json()) // Accepte JSON Data
-app.use(cors())
 
-app.use("/api/user", corsOptionsDelegate(), userRoutes);
-app.use("/api/chat", corsOptionsDelegate(),chatRoutes);
-app.use("/api/message", corsOptionsDelegate(), messageRoutes);
-app.use("/api/server", corsOptionsDelegate(), serverRoutes);
+app.use("/api/user", userRoutes);
+app.use("/api/chat", chatRoutes);
+app.use("/api/message", messageRoutes);
+app.use("/api/server", serverRoutes);
 
 // ---------Deployement-----------------------------------------------------------
 const __dirname1 = path.resolve();
