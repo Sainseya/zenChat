@@ -1,5 +1,5 @@
 const express = require("express");
-// const cors = require("cors")
+const cors = require("cors")
 const dotenv = require("dotenv");
 const connectDB = require("./config/db");
 const userRoutes = require("./routes/userRoutes");
@@ -15,7 +15,7 @@ const app = express()
 dotenv.config()
 
 app.use(express.json()) // Accepte JSON Data
-// app.use(cors())
+app.use(cors())
 
 app.use("/api/user", userRoutes);
 app.use("/api/chat", chatRoutes);
