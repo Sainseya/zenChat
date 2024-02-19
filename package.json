@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "main": "server.js",
   "scripts": {
-    "start": "node backend/server.js"
+    "start": "node backend/server.js",
+    "server": "nodemon backend/server.js",
+    "build": "yarn install --legacy-peer-deps && yarn install --legacy-peer-deps --prefix frontend && yarn run build --prefix frontend"
   },
   "author": "theo and nseya",
   "license": "ISC",
