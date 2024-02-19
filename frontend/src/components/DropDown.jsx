@@ -13,7 +13,7 @@ const DropDown = ({ closeDropDown }) => {
   const handleLogout = async () => {
     if (user.email.endsWith('@zen-chat.com')) {
       try {
-        await axios.delete(`http://localhost:5000/api/user/${user._id}`, {
+        await axios.delete(`/api/user/${user._id}`, {
           headers: { Authorization: `Bearer ${user.token}` },
         });
       } catch (error) {

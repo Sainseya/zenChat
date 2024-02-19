@@ -37,7 +37,7 @@ const PopCreateGoup = ({ setShow, setGroupAdded }) => {
     try {
       console.log("search", search)
       const { data } = await axios.get(
-        `http://localhost:5000/api/user?search=${search}`,
+        `/api/user?search=${search}`,
         { headers: { Authorization: `Bearer ${user.token}` } }
       );
       setUserSearch({ data });
@@ -65,7 +65,7 @@ const PopCreateGoup = ({ setShow, setGroupAdded }) => {
       try {
         const userIds = selectedGroup.map(user => user._id);
         const { data } = await axios.post(
-          `http://localhost:5000/api/server`,
+          `/api/server`,
           {
             users: JSON.stringify(userIds),
             name : groupName,

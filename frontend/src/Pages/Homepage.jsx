@@ -11,7 +11,6 @@ import axios from "axios";
 import PopCreateGoup from "../components/CreateGroup/PopUpCreateGoup";
 import io from 'socket.io-client'
 
-const ENDPOINT = 'http://localhost:5000'
 
 const Homepage = () => {
   const [groupAdded, setGroupAdded] = useState(false);
@@ -23,7 +22,7 @@ const Homepage = () => {
   const { user, setContactId, selectedChat, setSelectedChat, setMessages, socket, setSocket, setSelectedChatCompare, groups, setGroups, channels, setServer, setChannels } = ChatState();
 
   const currentUser = user && user._id;
-  const ENDPOINT = 'http://localhost:5000'; // Adjust the endpoint accordingly
+  // const ENDPOINT = 'http://localhost:5000'; // Adjust the endpoint accordingly
 
   let navigate = useNavigate();
 
@@ -45,7 +44,7 @@ const Homepage = () => {
   const handleChatClick = async (contactId) => {
     try {
       const response = await axios.post(
-        `${ENDPOINT}/api/chat`,
+        `/api/chat`,
         { userId: contactId },
         { headers: { Authorization: `Bearer ${user.token}` } }
       );
@@ -69,7 +68,7 @@ const Homepage = () => {
     }
     try {
       const { data } = await axios.get(
-        `${ENDPOINT}/api/message/${selectedChat}`,
+        `/api/message/${selectedChat}`,
         { headers: { Authorization: `Bearer ${user.token}` } }
       );
 
@@ -94,7 +93,7 @@ const Homepage = () => {
 
     try {
       const { data } = await axios.get(
-        `${ENDPOINT}/api/user/contact?search=${currentUser}`,
+        `/api/user/contact?search=${currentUser}`,
         { headers: { Authorization: `Bearer ${user.token}` } }
       );
       setContactList(data);
@@ -106,7 +105,7 @@ const Homepage = () => {
   const fetchAllServer = async () => {
     try {
       const { data } = await axios.get(
-        `${ENDPOINT}/api/server`,
+        `/api/server`,
         // { headers: { Authorization: `Bearer ${user.token}` } }
       );
       setGroups(data);
@@ -119,7 +118,7 @@ const Homepage = () => {
     try {
       setServer(group)
       const { data } = await axios.get(
-        `http://localhost:5000/api/server/fetchAllChannel/`,
+        `/api/server/fetchAllChannel/`,
         { params: { serverId: group } }
       );
       setChannels(data)
