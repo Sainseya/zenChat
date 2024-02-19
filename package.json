@@ -5,7 +5,7 @@
   "scripts": {
     "start": "node backend/server.js",
     "server": "nodemon backend/server.js",
-    "build": "yarn install --legacy-peer-deps && yarn install --legacy-peer-deps --prefix frontend && yarn run build --prefix frontend"
+    "build": "yarn run build"
   },
   "author": "theo and nseya",
   "license": "ISC",
