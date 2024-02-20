@@ -9,7 +9,7 @@ import io from 'socket.io-client';
 import { ToastContainer, toast } from "react-toastify";
 import UserCard from "../components/UserCard";
 
-const ENDPOINT = 'https://zenchat-61rp.onrender.com';
+// const ENDPOINT = 'https://zenchat-61rp.onrender.com';
 
 const ServerPage = () => {
   const [showChannel, setShowChannel] = useState(false);
@@ -22,7 +22,7 @@ const ServerPage = () => {
     }
     try {
       const { data } = await axios.get(
-        `/api/message/${selectedChat}`,
+        `http://localhost:5000/api/message/${selectedChat}`,
         { headers: { Authorization: `Bearer ${user.token}` } }
       );
 

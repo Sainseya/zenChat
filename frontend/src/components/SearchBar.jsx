@@ -27,7 +27,7 @@ const SearchBar = ({ contactList, setContactList }) => {
 
     try {
       const { data } = await axios.get(
-        `/api/user?search=${search}`,
+        `http://localhost:5000/api/user?search=${search}`,
         { headers: { Authorization: `Bearer ${user.token}` } }
       );
       setUserSearch({ data });
@@ -43,7 +43,7 @@ const SearchBar = ({ contactList, setContactList }) => {
     event.preventDefault();
     try {
       const { data } = await axios.post(
-        `/api/user/contact`,
+        `http://localhost:5000/api/user/contact`,
         {
           friendId: userId,
           userId: user._id,

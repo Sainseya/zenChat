@@ -29,7 +29,7 @@ const PopUpSignIn = ({ onClose }) => {
 
     try {
       const { data } = await axios.post(
-        "/api/user",
+        "http://localhost:5000/api/user",
         { name, email, password, pic },
         { headers: { "Content-Type": "application/json" } }
       );

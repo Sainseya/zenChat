@@ -14,14 +14,15 @@ connectDB();
 const app = express();
 dotenv.config();
 
-const corsOptions = {
-  origin: ['http://localhost:5000/*', 'https://zenchat-61rp.onrender.com/*'], // Ajoutez votre domaine de production ici
-  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-  credentials: true,
-  optionsSuccessStatus: 204,
-};
+// const corsOptions = {
+//   origin: ['http://localhost:5000/*', 'https://zenchat-61rp.onrender.com/*'], // Ajoutez votre domaine de production ici
+//   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+//   credentials: true,
+//   optionsSuccessStatus: 204,
+// };
 
-app.use(cors(corsOptions));
+// app.use(cors(corsOptions));
+app.use(cors())
 app.use(express.json()); // Accepte JSON Data
 
 app.use("/api/user", userRoutes);
@@ -48,9 +49,8 @@ if (process.env.NODE_ENV === "production") {
 app.use(notFound);
 app.use(errorHandler);
 
-const PORT = process.env.PORT || 5000; // Fallback to 5000 if PORT is not defined
+const PORT = process.env.PORT
 const server = app.listen(PORT, console.log(`Server Started on PORT ${PORT}`));
-
 
 const io = require("socket.io")(server, {
     pingTimeout: 60000,
