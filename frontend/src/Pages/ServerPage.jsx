@@ -69,7 +69,6 @@ const ServerPage = () => {
     fetchMessages();
   }, [selectedChat])
 
-console.log(channels); 
   return (
     <div className="bg-cream h-screen flex flex-col overflow-x-hidden">
       <ToastContainer />
