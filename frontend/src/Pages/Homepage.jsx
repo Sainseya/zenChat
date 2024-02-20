@@ -20,7 +20,7 @@ const Homepage = () => {
   const [popupCreateGroup, setPopouCreateGroup] = useState(false);
   const [contactList, setContactList] = useState([]);
   const [isFriendAdded, setIsFriendAdded] = useState(false);
-  const { user, setContactId, selectedChat, setSelectedChat, setMessages, socket, setSocket, setSelectedChatCompare, groups, setGroups, channels, setServer, setChannels } = ChatState();
+  const { user, setContactId, selectedChat, setSelectedChat, setMessages, socket, setSocket, setSelectedChatCompare, groups, setGroups, setServer, setChannels } = ChatState();
 
   const currentUser = user && user._id;
   // const ENDPOINT = 'https://zenchat-61rp.onrender.com';
@@ -140,11 +140,9 @@ const Homepage = () => {
   useEffect(() => {
     if (isFriendAdded) {
       fetchData();
-      console.log("isFriendAdded:", isFriendAdded);
       setIsFriendAdded(false); 
     }
   }, [isFriendAdded]); 
-
 
 
 
@@ -192,7 +190,8 @@ const Homepage = () => {
                     userName={contact.name}
                     pic={contact.pic}
                     email={contact.email}
-                    onClick={() => handleChatClick(contact._id)}
+                    onClick={() => handleChatClick(contact._id)
+                  }
                   />
                 ))}
               </div>

@@ -2,7 +2,7 @@ import React, { useRef, useEffect } from "react";
 import { ChatState } from "../../Context/ChatProvider";
 
 
-const ChatMessages = ({ inServer, contactList }) => {
+const ChatMessages = ({ inServer }) => {
   const { messages, user} = ChatState();
   const currentUser = user && user._id;
   const messagesEndRef = useRef(null);

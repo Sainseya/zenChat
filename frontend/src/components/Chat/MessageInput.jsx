@@ -6,11 +6,11 @@ import { ChatState } from "../../Context/ChatProvider";
 
 const MessageInput = () => {
   const [newMessage, setNewMessage] = useState("");
-  const { selectedChat, user, setMessages, socket, messages, groups, server } = ChatState();
+  const { selectedChat, user, setMessages, socket, messages, server } = ChatState();
 
   const handleKeyDown = (e) => {
     if (e.key === "Enter") {
-      handleSendMessage();
+      handleSendMessage(e);
     }
   };
 
@@ -54,7 +54,7 @@ const MessageInput = () => {
         // code to create a channel.
         try {
           const { data } = await axios.put(
-            `/api/server/channel/`,
+            `http://localhost:5000/api/server/channel/`,
             {
               name: commandArgs[1],
               users: user._id,
@@ -63,7 +63,6 @@ const MessageInput = () => {
             { headers: { Authorization: `Bearer ${user.token}` } }
           );
           toast(`Creation du channel ${commandArgs[1]}`);
-          console.log(data)
         } catch (error) {
           console.error(error);
         }

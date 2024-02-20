@@ -2,11 +2,11 @@ import MessageInput from "../components/Chat/MessageInput";
 import ChatMessages from "../components/Chat/ChatMessages";
 
 
-const Chat = ({ inServer = false, contactList }) => {
+const Chat = ({ inServer = false }) => {
 
   return (
     <div className="bg-cream flex flex-col h-full">
-      <ChatMessages inServer={inServer} contactList={contactList} />
+      <ChatMessages inServer={inServer} />
       <MessageInput />
     </div>
   );
