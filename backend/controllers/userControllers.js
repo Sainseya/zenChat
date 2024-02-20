@@ -104,6 +104,8 @@ const allUsers = asyncHandler(async (req, res) => {
 });
 
 const addToContact = asyncHandler(async (req, res) => {
+
+  console.log(req.body)
   try {
     const { friendId, userId } = req.body;
 

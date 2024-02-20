@@ -14,7 +14,9 @@ const ChatProvider = ({ children }) => {
   const [groups, setGroups] = useState([])
   const [server, setServer] = useState([])
   const [channels, setChannels] = useState([])
+  const [channelMember, setChannelMember] = useState([])
   const [selectedChatCompare, setSelectedChatCompare] = useState(null)
+  const [newMessage, setNewMessage] = useState("");
   let navigate = useNavigate();
 
 
@@ -22,10 +24,10 @@ const ChatProvider = ({ children }) => {
     const userInfo = JSON.parse(localStorage.getItem("userInfo"));
     setUser(userInfo);
 
-    if (!userInfo){
+    if (!userInfo) {
       navigate("/")
     }
-  },[navigate]);
+  }, [navigate]);
 
 
 
@@ -43,18 +45,20 @@ const ChatProvider = ({ children }) => {
         chats,
         setChats,
         userSearch,
-        setUserSearch, 
+        setUserSearch,
         contactId,
-        setContactId, 
+        setContactId,
         messages,
         setMessages,
-        selectedChatCompare, 
+        selectedChatCompare,
         setSelectedChatCompare,
         groups,
         setGroups,
         channels, setChannels,
-        server, setServer
-            }}
+        server, setServer,
+        channelMember, setChannelMember,
+        newMessage, setNewMessage
+      }}
     >
       {children}
     </ChatContext.Provider>
