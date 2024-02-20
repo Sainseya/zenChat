@@ -4,7 +4,7 @@ import DropDown from "../DropDown";
 import SearchBar from "../SearchBar";
 import { ChatState } from "../../Context/ChatProvider";
 
-const TopBar = ({ pageName, inServer = false }) => {
+const TopBar = ({ pageName, inServer = false, setIsFriendAdded }) => {
   const [dropDown, setDropDown] = useState(false);
   const { user } = ChatState();
 
@@ -25,7 +25,7 @@ const TopBar = ({ pageName, inServer = false }) => {
           <div className="text-cream text-sm ml-3 ">{nameUser}</div>
         </div>
         <div className="flex-1 h-full">
-          {!inServer && <SearchBar />}
+          {!inServer && <SearchBar setIsFriendAdded={setIsFriendAdded}/>}
           </div>
         <button className="mr-2" onClick={handleDotsClick}>
           <BsThreeDotsVertical color="white" size={20} />

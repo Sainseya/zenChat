@@ -11,6 +11,7 @@ import axios from "axios";
 import PopCreateGoup from "../components/CreateGroup/PopUpCreateGoup";
 import io from 'socket.io-client'
 
+
 const Homepage = () => {
   const [groupAdded, setGroupAdded] = useState(false);
   const [showFriends, setShowFriends] = useState(true);
@@ -18,6 +19,7 @@ const Homepage = () => {
   const [showMessage, setShowMessage] = useState(false);
   const [popupCreateGroup, setPopouCreateGroup] = useState(false);
   const [contactList, setContactList] = useState([]);
+  const [isFriendAdded, setIsFriendAdded] = useState(false);
   const { user, setContactId, selectedChat, setSelectedChat, setMessages, socket, setSocket, setSelectedChatCompare, groups, setGroups, channels, setServer, setChannels } = ChatState();
 
   const currentUser = user && user._id;
@@ -136,6 +138,17 @@ const Homepage = () => {
   }, [currentUser, user]);
 
   useEffect(() => {
+    if (isFriendAdded) {
+      fetchData();
+      console.log("isFriendAdded:", isFriendAdded);
+      setIsFriendAdded(false); 
+    }
+  }, [isFriendAdded]); 
+
+
+
+
+  useEffect(() => {
     if (user) {
       const newSocket = io(ENDPOINT);
       newSocket.emit('setup', user);
@@ -157,7 +170,7 @@ const Homepage = () => {
     <div className="bg-yellow-50 h-screen flex flex-col overflow-x-hidden">
       <div>
         <div className="fixed top-0 w-full bg-cream z-50">
-          <TopBar pageName={"Zen Chat"} />
+          <TopBar pageName={"Zen Chat"} setIsFriendAdded={setIsFriendAdded} />
           <div className="flex justify-items-center">
             <ButtonChoice buttonName={"Amis"} onClick={handleFriendsClick} />
             <ButtonChoice buttonName={"Serveurs"} onClick={handleServerClick} />

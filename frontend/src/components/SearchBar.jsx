@@ -6,7 +6,7 @@ import axios from "axios";
 import { ChatState } from "../Context/ChatProvider";
 import { IoIosAddCircleOutline } from "react-icons/io";
 
-const SearchBar = ({ contactList, setContactList }) => {
+const SearchBar = ({ contactList, setContactList, setIsFriendAdded }) => {
   const [search, setsearch] = useState();
   const { user, setUserSearch } = ChatState();
   const { userSearch } = ChatState();
@@ -52,11 +52,14 @@ const SearchBar = ({ contactList, setContactList }) => {
       );
   
       setContactList((contactList) => [...contactList, data]);
-      
     } catch (error) {
       if (error.response && error.response.status === 400) {
         toast("Zen mec vous êtes déjà ami :)");
       }
+    }finally
+    {
+      setIsFriendAdded(true);
+      HandleDisplayResponse();
     }
   };
   
