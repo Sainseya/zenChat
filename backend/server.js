@@ -15,7 +15,7 @@ const app = express();
 dotenv.config();
 
 const corsOptions = {
-  origin: ['http://localhost:5000/*', 'https://zenchat-61rp.onrender.com/*'], // Ajoutez votre domaine de production ici
+  origin: ['https://zenchat-61rp.onrender.com/*'], // Ajoutez votre domaine de production ici
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
   credentials: true,
   optionsSuccessStatus: 204,
