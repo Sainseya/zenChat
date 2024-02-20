@@ -20,7 +20,10 @@ const Homepage = () => {
   const [popupCreateGroup, setPopouCreateGroup] = useState(false);
   const [contactList, setContactList] = useState([]);
   const [isFriendAdded, setIsFriendAdded] = useState(false);
-  const { user, setContactId, selectedChat, setSelectedChat, setMessages, socket, setSocket, setSelectedChatCompare, groups, setGroups, setServer, setChannels } = ChatState();
+  const { user, setContactId, selectedChat, setSelectedChat, socket, setSocket,
+      setSelectedChatCompare, groups, setGroups,
+      setServer, setChannels, 
+      setMessages, messages } = ChatState();
 
   const currentUser = user && user._id;
   // const ENDPOINT = 'https://zenchat-61rp.onrender.com';
@@ -62,8 +65,6 @@ const Homepage = () => {
     setShowMessage(true);
     setShowFriends(false);
     setShowServers(false);
-
-    // fetchMessages();
   };
 
   const fetchMessages = async () => {
@@ -107,6 +108,8 @@ const Homepage = () => {
   };
 
   const fetchAllServer = async () => {
+
+    console.log(messages)
     try {
       const { data } = await axios.get(
         `http://localhost:5000/api/server`,

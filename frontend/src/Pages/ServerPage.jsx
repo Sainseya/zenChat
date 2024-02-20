@@ -10,11 +10,13 @@ import { ToastContainer, toast } from "react-toastify";
 import UserCard from "../components/UserCard";
 
 // const ENDPOINT = 'https://zenchat-61rp.onrender.com';
+const ENDPOINT = 'http://localhost:5000/';
+
 
 const ServerPage = () => {
   const [showChannel, setShowChannel] = useState(false);
   const [showMember, setShowMember] = useState(false);
-  const { user, socket, selectedChat, setSelectedChat, setSelectedChatCompare, setSocket, setMessages, channels, groups, server } = ChatState();
+  const { user, socket, selectedChat, setSelectedChat, setSelectedChatCompare, setSocket, setMessages, channels, channelMember, setChannelMember } = ChatState();
 
   const fetchMessages = async () => {
     if (!selectedChat || !socket) {
@@ -54,9 +56,19 @@ const ServerPage = () => {
     }
   };
 
-  const handleUpdateChatChannel = (channelId) => {
+  const updateChannelMember = (channel) =>{
+    setChannelMember([])
+    if (channel.users && Array.isArray(channel.users)) {
+      setChannelMember(prevChannelMembers => [...prevChannelMembers, ...channel.users]);
+    } else {
+      console.error("La propriété 'users' n'est pas définie ou n'est pas un tableau.");
+    }
+  }
+
+  const handleUpdateChatChannel = (channel) => {
+    updateChannelMember(channel)
     setShowChannel(false);
-    setSelectedChat(channelId)
+    setSelectedChat(channel._id)
     setSelectedChatCompare(selectedChat);
     if (channels) {
       const newSocket = io(ENDPOINT);
@@ -106,7 +118,7 @@ const ServerPage = () => {
                   height="3rem"
                   name={`# ${channel.chatName || 'Unknown Chat'}`}
                   color="alabaster"
-                  onClick={() => handleUpdateChatChannel(channel._id)}
+                  onClick={() => handleUpdateChatChannel(channel)}
                 />
               ))}
             </div>
@@ -127,11 +139,15 @@ const ServerPage = () => {
             onClick={handleMemberClick}
           ></button>
           <div className="min-h-screen h-fit w-4/5 flex flex-col bg-dun border-l-2 border-r border-jet">
-            {channels.map((channel) => (
-              Array.isArray(channel.users) && channel.users.map((user) => (
-                <UserCard userName={user.name} pic={user.pic} onClick={""} key={user._id} />
-              ))
+            {Array.isArray(channelMember) && channelMember.map((member) => (
+              <UserCard
+                userName={member.name}
+                pic={member.pic}
+                // onClick={() => handleClick(member._id)}  // Remplacez handleClick avec votre fonction
+                key={member._id}
+              />
             ))}
+
           </div>
         </div>
       </div>

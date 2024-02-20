@@ -5,8 +5,7 @@ import { ToastContainer, toast } from "react-toastify";
 import { ChatState } from "../../Context/ChatProvider";
 
 const MessageInput = () => {
-  const [newMessage, setNewMessage] = useState("");
-  const { selectedChat, user, setMessages, socket, messages, server } = ChatState();
+  const { selectedChat, user, setMessages, socket, messages, server, channels, setChannelMember, newMessage, setNewMessage } = ChatState();
 
   const handleKeyDown = (e) => {
     if (e.key === "Enter") {
@@ -23,7 +22,7 @@ const MessageInput = () => {
         // code to set the user's nickname on the server.
         try {
           const { data } = await axios.put(
-            `/api/user`,
+            `http://localhost:5000//api/user`,
             {
               _id: user._id,
               newNickname: commandArgs[1],
@@ -40,7 +39,7 @@ const MessageInput = () => {
         // Code to list available channels.
         try {
           const { data } = await axios.get(
-            `/api/server/fetchAllChannel/`,
+            `http://localhost:5000/api/server/fetchAllChannel/`,
             { params: { serverId: server } }
           );
           console.log(data.map(e => e.chatName))
@@ -73,7 +72,7 @@ const MessageInput = () => {
         // code to delete a channel.
         try {
           const { data } = await axios.put(
-            `/api/server/deleteChannel`,
+            `http://localhost:5000/api/server/deleteChannel`,
             {
               name: commandArgs[1],
               serverId: server
@@ -89,13 +88,14 @@ const MessageInput = () => {
         // code to join a channel.
         try {
           const { data } = await axios.put(
-            `/api/server/joinChannel`,
+            `http://localhost:5000/api/server/joinChannel`,
             {
               userId: user._id,
               channelId: selectedChat
             },
           );
-          toast(`Vous avez rejoins le channel ${data.chatName}`);
+          // setChannelMember(prevChannelMembers => [...prevChannelMembers, ...channel.users]);
+          toast(`Vous avez rejoins le channel`);
         } catch (error) {
           console.error(error);
         }
@@ -106,13 +106,13 @@ const MessageInput = () => {
         // code to quit a channesl.
         try {
           const { data } = await axios.put(
-            `/api/server/quitChannel`,
+            `http://localhost:5000/api/server/quitChannel`,
             {
               userId: user._id,
               channelId: selectedChat
             },
           );
-          toast(`Vous venez de quitter le channel ${data.chatName}`);
+          toast(`Vous venez de quitter le channel`);
         } catch (error) {
           console.error(error);
         }
@@ -122,10 +122,21 @@ const MessageInput = () => {
         // list users in the current channel.
         try {
           const { data } = await axios.get(
-            `/api/server/listUsers`,
+            `http://localhost:5000/api/server/listUsers`,
             { params: { channelId: selectedChat } }
           );
-          toast(`${data}`);
+          // console.log(data.map((user)=>{
+          //   user.name
+          // })
+
+          if (Array.isArray(data)) {
+            const users = data.map(user => (user.name));
+            toast(`${users}`);
+          } else {
+            console.error("data n'est pas un tableau.");
+          }
+          
+          // console.log(users)
         } catch (error) {
           console.error(error);
         }
@@ -135,7 +146,7 @@ const MessageInput = () => {
       case '/msg':
         try {
           const { data } = await axios.post(
-            `/api/server/sendPrivateMessage`,
+            `http://localhost:5000/api/server/sendPrivateMessage`,
             {
               content: commandArgs[2],
               username: commandArgs[1],
@@ -146,6 +157,7 @@ const MessageInput = () => {
           if (socket) {
             socket.emit('new message', data);
           }
+          toast(`Vous avez un message privé a ${commandArgs[1]}`);
         } catch (error) {
           console.error(error + "");
         }
@@ -154,7 +166,7 @@ const MessageInput = () => {
       default:
         try {
           const { data } = await axios.post(
-            `/api/message`,
+            `http://localhost:5000/api/message`,
             {
               content: command,
               chatId: selectedChat,
@@ -176,14 +188,12 @@ const MessageInput = () => {
     if (!newMessage.trim()) {
       return;
     }
-
-    // Check if the message is a command
     if (newMessage.startsWith('/')) {
       handleCommand(newMessage);
     } else {
       try {
         const { data } = await axios.post(
-          `/api/message`,
+          `http://localhost:5000/api/message`,
           {
             content: newMessage,
             chatId: selectedChat,
@@ -197,7 +207,6 @@ const MessageInput = () => {
         console.error(error + "");
       }
     }
-
     setNewMessage("");
   };
 
@@ -212,7 +221,7 @@ const MessageInput = () => {
 
   return (
     <div className={`sticky w-full flex items-center p-4 border-2 border-jet bg-beaver z-10 bottom-0`}>
-      <ToastContainer />
+      {/* <ToastContainer /> */}
       <input
         type="text"
         value={newMessage}
