@@ -5,9 +5,6 @@ import AddMembers from "./AddMembers";
 import AddGroup from "./AddGroup";
 import { ChatState } from "../../Context/ChatProvider";
 
-
-
-
 const PopCreateGoup = ({ setShow, setGroupAdded }) => {
 
   const [groupName, setGroupName] = useState("");
@@ -17,7 +14,6 @@ const PopCreateGoup = ({ setShow, setGroupAdded }) => {
   const {user} = ChatState();
   const [selectedGroup, setSelectedGroup] = useState([]);
   const [isSearchOpen, setIsSearchOpen] = useState(true);
-
 
   const handleSubmit = (event) => {
     event.preventDefault(); 

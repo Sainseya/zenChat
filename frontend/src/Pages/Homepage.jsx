@@ -26,8 +26,7 @@ const Homepage = () => {
       setMessages, messages } = ChatState();
 
   const currentUser = user && user._id;
-  // const ENDPOINT = 'https://zenchat-61rp.onrender.com';
-  const ENDPOINT = 'http://localhost:5000/';
+  const ENDPOINT = 'https://zenchat-61rp.onrender.com';
 
 
 
@@ -51,7 +50,7 @@ const Homepage = () => {
   const handleChatClick = async (contactId) => {
     try {
       const response = await axios.post(
-        `http://localhost:5000/api/chat`,
+        `/api/chat`,
         { userId: contactId },
         { headers: { Authorization: `Bearer ${user.token}` } }
       );
@@ -73,7 +72,7 @@ const Homepage = () => {
     }
     try {
       const { data } = await axios.get(
-        `http://localhost:5000/api/message/${selectedChat}`,
+        `/api/message/${selectedChat}`,
         { headers: { Authorization: `Bearer ${user.token}` } }
       );
 
@@ -98,7 +97,7 @@ const Homepage = () => {
 
     try {
       const { data } = await axios.get(
-        `http://localhost:5000/api/user/contact?search=${currentUser}`,
+        `/api/user/contact?search=${currentUser}`,
         { headers: { Authorization: `Bearer ${user.token}` } }
       );
       setContactList(data);
@@ -112,7 +111,7 @@ const Homepage = () => {
     console.log(messages)
     try {
       const { data } = await axios.get(
-        `http://localhost:5000/api/server`,
+        `/api/server`,
         // { headers: { Authorization: `Bearer ${user.token}` } }
       );
       setGroups(data);
@@ -125,7 +124,7 @@ const Homepage = () => {
     try {
       setServer(group)
       const { data } = await axios.get(
-        `http://localhost:5000/api/server/fetchAllChannel/`,
+        `/api/server/fetchAllChannel/`,
         { params: { serverId: group } }
       );
       setChannels(data)

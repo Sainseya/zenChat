@@ -9,8 +9,8 @@ import io from 'socket.io-client';
 import { ToastContainer, toast } from "react-toastify";
 import UserCard from "../components/UserCard";
 
-// const ENDPOINT = 'https://zenchat-61rp.onrender.com';
-const ENDPOINT = 'http://localhost:5000/';
+const ENDPOINT = 'https://zenchat-61rp.onrender.com';
+// const ENDPOINT = 'http://localhost:5000/';
 
 
 const ServerPage = () => {

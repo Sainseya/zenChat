@@ -22,13 +22,13 @@ const MessageInput = () => {
         // code to set the user's nickname on the server.
         try {
           const { data } = await axios.put(
-            `http://localhost:5000//api/user`,
+            `/api/user`,
             {
               _id: user._id,
               newNickname: commandArgs[1],
             },
           );
-          toast(`Tu as changer de surnom`);
+          toast(`Tu as changer de surnom, ton nouveau surnom est : ${commandArgs[1]}`);
 
         } catch (error) {
           console.error(error + "");
@@ -39,7 +39,7 @@ const MessageInput = () => {
         // Code to list available channels.
         try {
           const { data } = await axios.get(
-            `http://localhost:5000/api/server/fetchAllChannel/`,
+            `/api/server/fetchAllChannel/`,
             { params: { serverId: server } }
           );
           console.log(data.map(e => e.chatName))
@@ -53,7 +53,7 @@ const MessageInput = () => {
         // code to create a channel.
         try {
           const { data } = await axios.put(
-            `http://localhost:5000/api/server/channel/`,
+            `/api/server/channel/`,
             {
               name: commandArgs[1],
               users: user._id,
@@ -72,7 +72,7 @@ const MessageInput = () => {
         // code to delete a channel.
         try {
           const { data } = await axios.put(
-            `http://localhost:5000/api/server/deleteChannel`,
+            `/api/server/deleteChannel`,
             {
               name: commandArgs[1],
               serverId: server
@@ -88,7 +88,7 @@ const MessageInput = () => {
         // code to join a channel.
         try {
           const { data } = await axios.put(
-            `http://localhost:5000/api/server/joinChannel`,
+            `/api/server/joinChannel`,
             {
               userId: user._id,
               channelId: selectedChat
@@ -106,7 +106,7 @@ const MessageInput = () => {
         // code to quit a channesl.
         try {
           const { data } = await axios.put(
-            `http://localhost:5000/api/server/quitChannel`,
+            `/api/server/quitChannel`,
             {
               userId: user._id,
               channelId: selectedChat
@@ -122,7 +122,7 @@ const MessageInput = () => {
         // list users in the current channel.
         try {
           const { data } = await axios.get(
-            `http://localhost:5000/api/server/listUsers`,
+            `/api/server/listUsers`,
             { params: { channelId: selectedChat } }
           );
           // console.log(data.map((user)=>{
@@ -146,7 +146,7 @@ const MessageInput = () => {
       case '/msg':
         try {
           const { data } = await axios.post(
-            `http://localhost:5000/api/server/sendPrivateMessage`,
+            `/api/server/sendPrivateMessage`,
             {
               content: commandArgs[2],
               username: commandArgs[1],
@@ -166,7 +166,7 @@ const MessageInput = () => {
       default:
         try {
           const { data } = await axios.post(
-            `http://localhost:5000/api/message`,
+            `/api/message`,
             {
               content: command,
               chatId: selectedChat,
@@ -193,7 +193,7 @@ const MessageInput = () => {
     } else {
       try {
         const { data } = await axios.post(
-          `http://localhost:5000/api/message`,
+          `/api/message`,
           {
             content: newMessage,
             chatId: selectedChat,
