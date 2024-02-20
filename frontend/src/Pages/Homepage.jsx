@@ -112,7 +112,7 @@ const Homepage = () => {
     try {
       const { data } = await axios.get(
         `/api/server`,
-        // { headers: { Authorization: `Bearer ${user.token}` } }
+        // { headers: { Authorization: `Bearer ${user.token}d` } }
       );
       setGroups(data);
     } catch (error) {
